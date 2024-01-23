@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name OpenFlops)(type KiCad)(uri ${KIPRJMOD}/OpenFlops.pretty)(options "")(descr ""))
-)

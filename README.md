@@ -1,58 +1,67 @@
-# OpenFlops
-OpenFlops is an Open Hardware Floppy Disk Drive emulator/simulator.
+This is a respin of [SukkoPera's](https://github.com/SukkoPera) original [OpenFlops](https://github.com/SukkoPera/OpenFlops) project to create a custom version that plugs directly into the male 50 pin disk header of a Ferguson Big Board SBC Z80 computer.  Changes from the original version include:
 
-![Board](https://raw.githubusercontent.com/SukkoPera/OpenFlops/master/img/render-top.png)
+- Updated to KiCad 7.x
+- Switched from USB to Micro SD for image storage
+- Switched to 74LS07's for buffers
+- Interface is a now a 50 pin connector and PCB laid out specifically for the Ferguson use case
 
-### Summary
-From [Wikipedia](https://en.wikipedia.org/wiki/Floppy_disk_hardware_emulator):
-> Older models of computers, electronic keyboards and industrial automation often used floppy disk drives for data transfer. Older equipment may be difficult to replace or upgrade because of cost, requirement for continuous availability or unavailable upgrades. Proper operation may require operating system, software and data to be read and written from and to floppies, forcing users to maintain floppy drives on supporting systems.
+Schematic - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-Schematic-v1.0.pdf](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv)
 
-> Floppy disks and floppy drives are gradually going out of production, and replacement of malfunctioning drives, and the systems hosting them, is becoming increasingly difficult. Floppy disks themselves are fragile, or may need to be replaced often. An alternative is to use a floppy disk hardware emulator, a device which appears to be a standard floppy drive to the old equipment by interfacing directly to the floppy disk controller, while storing data in another medium such as a USB thumb drive, Secure Digital card, or a shared drive on a computer network. Emulators can also be used as a higher-performance replacement for mechanical floppy disk drives. 
+![kicad-front](docs/kicad-front.png)
 
-OpenFlops is an Open Hardware implementation of such an emulator, inspired from the ubiquitous Gotek hardware. It is designed to run the [FlashFloppy](https://github.com/keirf/FlashFloppy) firmware, which gives it several improvements over the original Gotek:
-- Can be installed on [many different platforms](https://github.com/keirf/FlashFloppy/wiki/Host-Platforms)
-- Directly supports a [wide range of image formats](https://github.com/keirf/FlashFloppy/wiki/Image-Formats)
-- [Flexible track layout](https://github.com/keirf/FlashFloppy/wiki/Track-Layouts) for Raw Sector Images
-- [Extremely configurable](https://github.com/keirf/FlashFloppy/wiki/FF.CFG-Configuration-File)
-- Supports [AutoSwap](https://github.com/keirf/FF_AutoSwap) for games with a large number of disks
-- Easily accessible pin headers for connection of a [i2c display](https://github.com/keirf/FlashFloppy/wiki/Hardware-Mods#lcd-display) (either OLED or LCD), [rotary encoder](https://github.com/keirf/FlashFloppy/wiki/Hardware-Mods#rotary-encoder) (including power)
-- Built-in amplified speaker, or easily-accessible pin header for an external one
-- USB connector can either be soldered on the board or connected to a pin header
-- Connected Motor signal
-- Emulates two drives at the same time (Not yet supported by the firmware, but [it will come](https://github.com/keirf/FlashFloppy/wiki/Donations))
-- Has additional 3.3V, 5V and GND power pins
-- And hey, it's Open Hardware!
+![kicad-back](docs/kicad-back.png)
 
-All of this comes in the same form factor (and mounting holes) as the board installed in the original Gotek, hence it can be easily installed in any shell or enclosure designed for it.
+### BOM
 
-### Assembly and Installation
-Solder all components to the board. I suggest starting with the main microcontroller (U3), as it uses an LQFP package which is tricky to solder: the recommended technique is drag soldering, there are many videos about that on YouTube, so please look there for advice. I recommend soldering the bare minimum components needed for programming and then trying to flash it right away. This way you will be able to fix your soldering without too many components getting in the way, if needed. You will need a USB/TTL Serial converter for this: one with 3.3V I/O level is recommended, but a 5V one can be used, too (most pins on STM32 microcontrollers are 5V-tolerant, so don't worry, it's not a bad hack!). You shouldn't pay more than 1-2€ for it in any case, anyway. So, when you are ready:
+Interactive - [https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html](https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html)
 
-- Solder U3, Y1, C3 and C5, then the programming header (the top one with power, BOOT0, TX, RX, etc.)
-- Check for shorts on the 3.3V power lines, you can easily do this on the pads for C6-C10
-- If your USB/Serial adapter has a 3.3V output, connect it to 3.3V on the power header, then connect ground, RX and TX
-- If no 3.3V output is available, solder U4 and power the board through the 5V pin on the power header
+CSV - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv)
 
-Now you should be able to [program the STM32 microcontroller](https://github.com/keirf/FlashFloppy/wiki/Firmware-Programming). If you have difficultes you can try adding R10 (and C4) and maybe a few of C6-C10, but most likely the problem will be with the solder joints on U3, as soldering this kind of package manually is never easy, so please get a lens (or even better, a microscope) and double-check your job.
+For the MCU I switched from the STM32F105RBT6 to the Artery AT32F435RGT7 which is now well supported by FlashFloppy and a more capable chip for potential future expansion (dual drives?). You could also build with the STM32F105RBT6 and use the appropiate STM programmer and FlashFloppy firmware version.
 
-The serial adapter is only necessary for the first flashing. Subsequent updates [can be done easily via USB](https://github.com/keirf/FlashFloppy/wiki/Firmware-Update).
+C12 is a extra bulk capacitor footprint I added near the MCU in case it was needed.  I've run mine without and seems fine, so can be considered optional.  Measured current draw on the board is around 100ma, with the OLED display active.
 
-Note that most components are necessary, but there are a few you can skip if you are feeling lazy:
-- If you are not interested in the head movement sound, you can skip the following components: SPK1, D2, R5, R6, Q7.
-- If your LCD/OLED display already has pull-up resistors for the SDA/SCK lines (most do), you can skip R3 and R4.
+### Assembly
 
-### Configuration
-Please refer to the FlashFloppy wiki for the [initial setup](https://github.com/keirf/FlashFloppy/wiki/Initial-Setup) and an overview of the [available configuration options](https://github.com/keirf/FlashFloppy/wiki/FF.CFG-Configuration-File).
+Do all the SMD components first using your favorite method.  I tried the Proto-Advantage PA0096-S TQFP-64 stencil for the MCU since I didn't have another one anywhere and was to cheap to get a proper stencil from JLCPCB, but unfortunately the pads are 2mm in length on that guy which result in excessive solder paste being applied to the board and then general sadness and bridging after it reflows.
 
-Some options that you will want to override the default values of, in order to take advantage of all the features OpenFlops provides, are the following:
-- `motor-delay`
-- `rotary`
-- `display-type`
+I would flash the MCU (see below) next either by soldering on the angle headers for the SWD port or just holding headers in the holes to ensure everything works before doing the rest of the through hole components since it's a whole lot easier to do rework if needed with nothing else on the board.
 
-### Releases
-If you want to get this board produced, you are recommended to get [the latest release](https://github.com/SukkoPera/OpenFlops/releases) rather than the current git version, as the latter might be under development and is not guaranteed to be working.
+Once all flashed and assembled, the normal jumper settings for the BOOT0 and BOOT1 pins are to the left (connected to GND).  BOOT1 really isn't even needed, but I added it just in case.
 
-Every release is accompanied by its Bill Of Materials (BOM) file and any relevant notes about it, which you are recommended to read carefully.
+![boot0-1-normal](docs/boot0-1-normal.png)
+
+
+
+### Firmware Flashing
+
+To flash the FlashFloppy firmware on the MCU, I used Arterty's AT-Link+ hooked up the SWD port on the board.
+
+![artery-at-link](docs/artery-at-link.jpg)
+
+If your MCU is blank, you should be able to connect without having to set the BOOT0 jumper to high (3.3V)  If not and it is already running a user flashed program, you will need to move BOOT0 to the right in order for the bootloader to run and you can connect for flashing.
+
+![boot0](docs/boot0.jpg)
+
+Using Artery's ICP Programmer, **Connect** to the MCU and load the appropiate FlashFloppy hex file via the **Add** button and then hit **DownLoad**.
+
+![artery-icp-programmer](docs/artery-icp-programmer.png)
+
+Move the BOOT0 jumper back to the left (GND, logical 0) if needed and once you repower, the OLED should display FlashFloppy+. 
+
+### Usage
+
+If you have v1.0 board, you will need to add a bodge wire to pull 5V power from the resistor network to either pin 4, 6, or 8 (or all three) since the FlashFloppy board is powered directly from normally unused pins on the Ferguson's floppy port.
+
+![power-rework-v1.0](docs/power-rework-v1.0.png)
+
+If you have a version 1.1 board, simply close the solder jumper on the back of the board to do the same.
+
+![floppy-power-v1.1](docs/floppy-power-v1.1.png)
+
+Plug into your Ferguson and enjoy a clutter free floppy experience. ;)
+
+![installed](docs/installed.jpg)
 
 ### License
 The OpenFlops documentation, including the design itself, is copyright &copy; SukkoPera 2019-2020.
@@ -69,27 +78,8 @@ Any modifications made by Licensees (see section 3.4.b) shall be recorded in fil
 
 The Documentation Location of the original project is https://github.com/SukkoPera/OpenFlops/.
 
-### Support the Project
-Since the project is open you are free to get the PCBs made by your preferred manufacturer, however in case you want to support the development, you can order them from PCBWay through this link:
-
-[![PCB from PCBWay](https://www.pcbway.com/project/img/images/frompcbway.png)](https://www.pcbway.com/project/shareproject/OpenFlops_V1.html)
-
-You get my gratitude and cheap, professionally-made and good quality PCBs, I get some credit that will help with this and [other projects](https://www.pcbway.com/project/member/shareproject/?bmbid=41100). You won't even have to worry about the various PCB options, it's all pre-configured for you!
-
-Also, if you still have to register to that site, [you can use this link](https://www.pcbway.com/setinvite.aspx?inviteid=41100) to get some bonus initial credit (and yield me some more).
-
-Again, if you want to use another manufacturer, feel free to, don't feel obligated :). But then you can buy me a coffee if you want:
-
-<a href='https://ko-fi.com/L3L0U18L' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi2.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-
-### Get Help
-If you need help or have questions, you can join [the official Telegram group](https://t.me/joinchat/HUHdWBC9J9JnYIrvTYfZmg).
-
 ### Thanks
-- H.M for publishing the [original Gotek schematics](doc/gotek_usb-fde_block-diagram.jpg)
+- SukkoPera for the [OpenFlops](https://github.com/SukkoPera/OpenFlops) project
+- H.M for publishing the [original Gotek schematics](docs/gotek_usb-fde_block-diagram.jpg)
 - [keirf](https://github.com/keirf) for FlashFloppy
-- Brian Allan for suggesting some improvements for the Speaker circuit
-- Ray Bellis for suggesting adding pin headers for the USB port and speaker
-- Mario Babeu for suggesting to line up the orientation of LD1 and LD2
-- Patrick Kerkhof for sending me a lot of original Gotek housing for dimensional testing
 
