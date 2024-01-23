@@ -1,11 +1,11 @@
-This is a respin of [SukkoPera's](https://github.com/SukkoPera) original [OpenFlops](https://github.com/SukkoPera/OpenFlops) project to create a custom version that plugs directly into the male 50 pin disk header of a Ferguson Big Board SBC Z80 computer.  Changes from the original version include:
+This is a respin of [SukkoPera's](https://github.com/SukkoPera) original [OpenFlops](https://github.com/SukkoPera/OpenFlops) project to create a custom version that plugs directly into the male 50 pin disk header of my [Ferguson Big Board](https://github.com/djtersteegc/Ferguson-Big-Board-Reproduction) SBC Z80 computer.  Changes from the original version include:
 
 - Updated to KiCad 7.x
 - Switched from USB to Micro SD for image storage
 - Switched to 74LS07's for buffers
 - Interface is a now a 50 pin connector and PCB laid out specifically for the Ferguson use case
 
-Schematic - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-Schematic-v1.0.pdf](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv)
+Schematic - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-Schematic-v1.0.pdf](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-Schematic-v1.0.pdf)
 
 ![kicad-front](docs/kicad-front.png)
 
@@ -51,7 +51,7 @@ Move the BOOT0 jumper back to the left (GND, logical 0) if needed and once you r
 
 ### Usage
 
-If you have v1.0 board, you will need to add a bodge wire to pull 5V power from the resistor network to either pin 4, 6, or 8 (or all three) since the FlashFloppy board is powered directly from normally unused pins on the Ferguson's floppy port.
+If you have v1.0 repoduction board (or original), you will need to add a bodge wire to pull 5V power from the resistor network to either pin 4, 6, or 8 (or all three) since the FlashFloppy board is powered directly from normally unused pins on the Ferguson's floppy port.
 
 ![power-rework-v1.0](docs/power-rework-v1.0.png)
 
