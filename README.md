@@ -63,7 +63,16 @@ Plug into your Ferguson and enjoy a clutter free floppy experience. ;)
 
 ![installed](docs/installed.jpg)
 
+### Getting a Board
+
+If you're in the US, hit me up on this VCFed thread and if I have any extras, can drop one in the mail for a couple bucks.  
+
+https://forum.vcfed.org/index.php?threads/recreating-the-ferguson-big-board.68349/
+
+Otherwise [gerbers](gerbers) are available for use at your favorite PCB fab. 
+
 ### License
+
 The OpenFlops documentation, including the design itself, is copyright &copy; SukkoPera 2019-2020.
 
 OpenFlops is Open Hardware licensed under the [CERN OHL v. 1.2](http://ohwr.org/cernohl).
