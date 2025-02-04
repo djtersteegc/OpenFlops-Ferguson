@@ -13,7 +13,9 @@ Schematic - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson
 
 ### BOM
 
-Interactive - [https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html](https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html)
+Interactive v1.0 - [https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html](https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html)
+
+Interactive v1.1 - [https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.1.html](https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.1.html)
 
 CSV - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv)
 
