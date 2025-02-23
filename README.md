@@ -11,6 +11,12 @@ Schematic - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson
 
 ![kicad-back](docs/kicad-back.png)
 
+Version 1.1 shrinks the SWD pin headers to allow room for a 9mm speaker to make floppy'ish sounds when accessing and seeking.
+
+https://youtu.be/Bbqj_xtnAqc
+
+![installed](docs/installed-v1.1.jpg)
+
 ### BOM
 
 Interactive v1.0 - [https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html](https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html)
@@ -41,6 +47,10 @@ To flash the FlashFloppy firmware on the MCU, I used Arterty's AT-Link+ hooked u
 
 ![artery-at-link](docs/artery-at-link.jpg)
 
+For the v1.1 boards, a pogo pin clamp is handy.
+
+![artery-at-link](docs/artery-at-link-v1.1.jpg)
+
 If your MCU is blank, you should be able to connect without having to set the BOOT0 jumper to high (3.3V)  If not and it is already running a user flashed program, you will need to move BOOT0 to the right in order for the bootloader to run and you can connect for flashing.
 
 ![boot0](docs/boot0.jpg)
@@ -64,6 +74,12 @@ If you have a version 1.1 board, simply close the solder jumper on the back of t
 Plug into your Ferguson and enjoy a clutter free floppy experience. ;)
 
 ![installed](docs/installed.jpg)
+
+### Versions
+
+**v1.0** - Initial release, tested and working.
+
+**v1.1** - Shrinks the SWD pin headers to allow room for a 9mm speaker.
 
 ### Getting a Board
 
