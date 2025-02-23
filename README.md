@@ -5,8 +5,6 @@ This is a respin of [SukkoPera's](https://github.com/SukkoPera) original [OpenFl
 - Switched to 74LS07's for buffers
 - Interface is a now a 50 pin connector and PCB laid out specifically for the Ferguson use case
 
-Schematic - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-Schematic-v1.0.pdf](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-Schematic-v1.0.pdf)
-
 ![kicad-front](docs/kicad-front.png)
 
 ![kicad-back](docs/kicad-back.png)
@@ -17,13 +15,19 @@ https://youtu.be/Bbqj_xtnAqc
 
 ![installed](docs/installed-v1.1.jpg)
 
+Schematic v1.0 - https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-Schematic-v1.0.pdf
+
+Schematic v1.1 - https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-Schematic-v1.1.pdf
+
 ### BOM
 
 Interactive v1.0 - [https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html](https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.0.html)
 
+CSV v1.0 - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv)
+
 Interactive v1.1 - [https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.1.html](https://djtersteegc.github.io/OpenFlops-Ferguson/ibom-v1.1.html)
 
-CSV - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.0.csv)
+CSV v1.1 - [https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.1.csv](https://djtersteegc.github.io/OpenFlops-Ferguson/OpenFlops-Ferguson-BOM-v1.1.csv)
 
 For the MCU I switched from the STM32F105RBT6 to the Artery AT32F435RGT7 which is now well supported by FlashFloppy and a more capable chip for potential future expansion (dual drives?). You could also build with the STM32F105RBT6 and use the appropiate STM programmer and FlashFloppy firmware version.
 
